@@ -1,0 +1,84 @@
+name: ci for recommendation microservice
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-recommendation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        #working-directory: src/recommendation  if using that option, don't use cd src/recommendation anymore
+        run: |
+          cd src/recommendation
+          python -m pytest
+
+        #   or use
+      # - name: Run unit tests
+      #   working-directory: src/recommendation
+      #   run: |
+      #     python -m pytest
+
+# Note: what is the relevance of this test:  name: Cache pip
+# The Cache pip step in your GitHub Actions workflow is purely about speed and efficiency — it doesn’t affect correctness.
+
+# Here’s why it’s relevant:
+
+# 💡 What it does
+# Without caching:
+# Every time your workflow runs, pip install -r requirements.txt downloads all dependencies from scratch, even if nothing changed.
+
+# With caching:
+# GitHub Actions stores your already-downloaded Python packages in a cache between runs.
+# On the next run, if requirements.txt is the same, the cache is restored and installation is almost instant.
+
+# ⚡ Benefits
+# Faster builds
+
+# Skips re-downloading dependencies every time.
+
+# Can reduce installation from ~30–60 seconds to ~2–5 seconds.
+
+# Less network usage
+
+# Saves bandwidth, which is useful for large packages like torch or tensorflow.
+
+# Consistency
+
+# The same dependency versions are reused unless requirements.txt changes.
+
+# 🔑 How it works in your example
+# key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+
+# This key changes only if your requirements.txt file changes.
+
+# If it changes, GitHub downloads fresh dependencies and stores a new cache.
+
+# 📌 In short:
+# Cache pip is not required for your CI to work,
+# but it makes repeated runs much faster and more efficient — especially
+# useful if you push frequently or have multiple PRs.
+

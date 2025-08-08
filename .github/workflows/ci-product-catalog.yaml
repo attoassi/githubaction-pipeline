@@ -79,3 +79,5 @@ jobs:
           #tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.sha }}
           tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.run_id }}
           #tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:latest
+
+          echo "$TOKEN" | docker login -u attodoker --password-stdin
