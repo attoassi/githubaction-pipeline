@@ -39,8 +39,33 @@ jobs:
     #       python -m pytest
     #       echo "No tests yet"
 
-# NOTE: src/recommendation folder has only application code (.py files) and no test files,
-#       so pytest has nothing to execute. that's why echo "No tests yet" is used. on line 40
+  # NOTE: src/recommendation folder has only application code (.py files) and no test files,
+  #       so pytest has nothing to execute. that's why echo "No tests yet" is used. on line 40
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Run flake8
+        run: |
+          cd src/recommendation
+          pip install flake8
+          flake8 .
 
 #     or use:
 #   - name: Install dependencies
