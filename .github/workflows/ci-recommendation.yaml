@@ -37,20 +37,23 @@ jobs:
         run: |
           cd src/recommendation
           python -m pytest
+          echo "No tests yet"
 
-    #     or use:
-    #   - name: Install dependencies
-    #     working-directory: src/recommendation
-    #     run: |
-    #       python -m pip install --upgrade pip
-    #       pip install -r requirements.txt
+# NOTE: src/recommendation folder has only application code (.py files) and no test files,
+#       so pytest has nothing to execute. that's why echo "No tests yet" is used. on line 40
 
-    #   or use
-    # - name: Run unit tests
-    #   working-directory: src/recommendation
-    #   run: |
-    #     python -m pytest
+#     or use:
+#   - name: Install dependencies
+#     working-directory: src/recommendation
+#     run: |
+#       python -m pip install --upgrade pip
+#       pip install -r requirements.txt
 
+#   or use
+# - name: Run unit tests
+#   working-directory: src/recommendation
+#   run: |
+#     python -m pytest
 # Note: what is the relevance of this test:  name: Cache pip
 # The Cache pip step in your GitHub Actions workflow is purely about speed and efficiency — it doesn’t affect correctness.
 
