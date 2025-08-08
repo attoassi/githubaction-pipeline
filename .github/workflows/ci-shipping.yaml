@@ -37,10 +37,12 @@ jobs:
             ${{ runner.os }}-cargo-build-
 
       - name: Build Release
-        run: cd src/shipping
+        run: |
+          cd src/shipping
           cargo build --release
 
       - name: Run Tests
-        run: cd src/shipping
+        run: |
+          cd src/shipping
           cargo test --release
       #   run: cargo test --verbose
