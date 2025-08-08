@@ -32,12 +32,12 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Run unit tests
-        #working-directory: src/recommendation  if using that option, don't use cd src/recommendation anymore
-        run: |
-          cd src/recommendation
-          python -m pytest
-          echo "No tests yet"
+    #   - name: Run unit tests
+    #     #working-directory: src/recommendation  if using that option, don't use cd src/recommendation anymore
+    #     run: |
+    #       cd src/recommendation
+    #       python -m pytest
+    #       echo "No tests yet"
 
 # NOTE: src/recommendation folder has only application code (.py files) and no test files,
 #       so pytest has nothing to execute. that's why echo "No tests yet" is used. on line 40
