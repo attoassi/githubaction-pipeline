@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          cd src/recommendation
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
@@ -36,11 +37,18 @@ jobs:
           cd src/recommendation
           python -m pytest
 
-        #   or use
-      # - name: Run unit tests
-      #   working-directory: src/recommendation
-      #   run: |
-      #     python -m pytest
+    #     or use:
+    #   - name: Install dependencies
+    #     working-directory: src/recommendation
+    #     run: |
+    #       python -m pip install --upgrade pip
+    #       pip install -r requirements.txt
+
+    #   or use
+    # - name: Run unit tests
+    #   working-directory: src/recommendation
+    #   run: |
+    #     python -m pytest
 
 # Note: what is the relevance of this test:  name: Cache pip
 # The Cache pip step in your GitHub Actions workflow is purely about speed and efficiency — it doesn’t affect correctness.
