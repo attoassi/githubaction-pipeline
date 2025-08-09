@@ -74,10 +74,11 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: src/product-catalog
-          dockerfile: Dockerfile
+          file: src/product-catalog/Dockerfile
           push: true
-          #tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.sha }}
           tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.run_id }}
-          #tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:latest
+          # tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.sha }}
+          # tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:${{ github.run_id }}
+          # tags: ${{ secrets.DOCKER_IMAGE_TAG }}/product-catalog:latest
 
-          echo "$TOKEN" | docker login -u attodoker --password-stdin
+          # echo "$TOKEN" | docker login -u attodoker --password-stdin
