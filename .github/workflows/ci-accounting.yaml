@@ -35,7 +35,7 @@ jobs:
       - name: Build, test, and pack
         uses: Elskom/build-dotnet@main
         with:
-          PROJECT: src/accounting/Accounting.csproj
+          SOLUTION_FILE_PATH: src/accounting/Accounting.sln
           RESTORE: false
           TEST: true
           PACK: true
