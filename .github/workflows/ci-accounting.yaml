@@ -37,16 +37,16 @@ jobs:
         # Build project
       - name: Build
         run: |
-          cd src/accounting/Accounting.csproj
+          cd src/accounting
           dotnet build -c Release -bl:./msbuild.binlog
 
           # Run tests (optional - remove if no tests)
       - name: Test
         run: |
-          cd src/accounting/Accounting.csproj
+          cd src/accounting
           dotnet test --no-build --verbosity normal
 
       - name: Pack
         run: |
-          cd src/accounting/Accounting.csproj
+          cd src/accounting
           dotnet pack -c Release -o ../../nupkg --include-symbols --include-source
