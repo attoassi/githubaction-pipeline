@@ -33,17 +33,17 @@ jobs:
 
         # 4. Build, test, and pack
       - name: Build, test, and pack
-        # uses: Elskom/build-dotnet@main
-        # with:
-        #   PROJECT: src/accounting/Accounting.csproj
-        #   RESTORE: false
-        #   TEST: true
-        #   PACK: true
-        #   PUSH: false
-        #   SOURCE_NAME: nuget.org
+        uses: Elskom/build-dotnet@main
+        with:
+          PROJECT: src/accounting/Accounting.csproj
+          RESTORE: false
+          TEST: true
+          PACK: true
+          PUSH: false
+          SOURCE_NAME: nuget.org
 
-        run: |
-          cd src/accounting
-          dotnet build --configuration Release
-          dotnet test --configuration Release --no-build --verbosity normal
-          dotnet pack --configuration Release --output ../../nupkg --include-symbols --include-source
+        # run: |
+        #   cd src/accounting
+        #   dotnet build --configuration Release
+        #   dotnet test --configuration Release --no-build --verbosity normal
+        #   dotnet pack --configuration Release --output ../../nupkg --include-symbols --include-source
