@@ -24,5 +24,10 @@ jobs:
       - name: Restore, build, test, and pack
         uses: Elskom/build-dotnet@main
         with:
+          RESTORE: true
           TEST: true
           PACK: true
+          PUSH: false
+          SOURCE_NAME: nuget.org
+
+        working-directory: src/accounting
