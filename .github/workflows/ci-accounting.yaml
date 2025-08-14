@@ -27,10 +27,8 @@ jobs:
           dotnet restore
 
       - name: Build, test, and pack
-        uses: Elskom/build-dotnet@main
-        with:
-          RESTORE: false
-          TEST: true
-          PACK: true
-          PUSH: false
-          SOURCE_NAME: nuget.org
+        run: |
+          cd src/accounting
+          dotnet build --configuration Release
+          dotnet test --no-build --verbosity normal
+          dotnet pack --configuration Release --output ./nupkg
