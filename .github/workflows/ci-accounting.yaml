@@ -28,34 +28,25 @@ jobs:
           dotnet-version: "8.0.x"
 
         # 3. Restore dependencies
+
       - name: Restore dependencies
-        run: dotnet restore src/accounting/Accounting.csproj
-      #   - name: Restore dependencies
-      #     run: |
-      #       cd src/accounting
-      #       dotnet restore
+        run: |
+          cd src/accounting
+          dotnet restore
 
-      #   # Build project
-      #   - name: Build
-      #     run: dotnet build src/accounting/Accounting.csproj --configuration Release --no-restore
+        # Build project
+      - name: Build
+        run: |
+          cd src/accounting/Accounting.csproj
+          dotnet build -c Release -bl:./msbuild.binlog
 
-      #     # Run tests (optional - remove if no tests)
-      #   - name: Test
-      #     run: dotnet test src/accounting/Accounting.csproj --no-build --verbosity normal
+          # Run tests (optional - remove if no tests)
+      - name: Test
+        run: |
+          cd src/accounting/Accounting.csproj
+          dotnet test --no-build --verbosity normal
 
-      # 4. Build, test, and pack
-      - name: Build, test, and pack
-        uses: Elskom/build-dotnet@main
-        with:
-          #   SOLUTION_FILE_PATH: src/accounting/Accounting.sln
-          RESTORE: false
-          TEST: true
-          PACK: true
-          PUSH: false
-          SOURCE_NAME: nuget.org
-
-    # run: |
-    #   cd src/accounting
-    #   dotnet build --configuration Release
-    #   dotnet test --configuration Release --no-build --verbosity normal
-    #   dotnet pack --configuration Release --output ../../nupkg --include-symbols --include-source
+      - name: Pack
+        run: |
+          cd src/accounting/Accounting.csproj
+          dotnet pack -c Release -o ../../nupkg --include-symbols --include-source
