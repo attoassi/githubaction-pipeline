@@ -13,22 +13,36 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       DOTNET_NOLOGO: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-      NUGET_XMLDOC_MODE: ${{secrets.NUGET_API_KEY}}
+      NUGET_XMLDOC_MODE: skip
     steps:
+      # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install latest .NET SDK
-        uses: Elskom/setup-latest-dotnet@main
+        # 2. Install .NET 8 SDK
+      - name: Install .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
 
+        # 3. Restore dependencies
       - name: Restore dependencies
         run: |
           cd src/accounting
           dotnet restore
 
+        # 4. Build, test, and pack
       - name: Build, test, and pack
-        run: |
-          cd src/accounting
-          dotnet build --configuration Release
-          dotnet test --no-build --verbosity normal
-          dotnet pack --configuration Release --output ./nupkg
+        uses: Elskom/build-dotnet@main
+        with:
+          RESTORE: false
+          TEST: true
+          PACK: true
+          PUSH: false
+          SOURCE_NAME: nuget.org
+
+        # run: |
+        #   cd src/accounting
+        #   dotnet build --configuration Release
+        #   dotnet test --configuration Release --no-build --verbosity normal
+        #   dotnet pack --configuration Release --output ../../nupkg --include-symbols --include-source
