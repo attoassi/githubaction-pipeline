@@ -34,24 +34,25 @@ jobs:
       #     run: |
       #       cd src/accounting
       #       dotnet restore
-      # Build project
-      - name: Build
-        run: dotnet build src/accounting/Accounting.csproj --configuration Release --no-restore
 
-        # Run tests (optional - remove if no tests)
-      - name: Test
-        run: dotnet test src/accounting/Accounting.csproj --no-build --verbosity normal
+      #   # Build project
+      #   - name: Build
+      #     run: dotnet build src/accounting/Accounting.csproj --configuration Release --no-restore
 
-    #     # 4. Build, test, and pack
-    #   - name: Build, test, and pack
-    #     uses: Elskom/build-dotnet@main
-    #     with:
-    #       SOLUTION_FILE_PATH: src/accounting/Accounting.sln
-    #       RESTORE: false
-    #       TEST: true
-    #       PACK: true
-    #       PUSH: false
-    #       SOURCE_NAME: nuget.org
+      #     # Run tests (optional - remove if no tests)
+      #   - name: Test
+      #     run: dotnet test src/accounting/Accounting.csproj --no-build --verbosity normal
+
+      # 4. Build, test, and pack
+      - name: Build, test, and pack
+        uses: Elskom/build-dotnet@main
+        with:
+          #   SOLUTION_FILE_PATH: src/accounting/Accounting.sln
+          RESTORE: false
+          TEST: true
+          PACK: true
+          PUSH: false
+          SOURCE_NAME: nuget.org
 
     # run: |
     #   cd src/accounting
