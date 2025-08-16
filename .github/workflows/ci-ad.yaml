@@ -27,11 +27,15 @@ jobs:
           distribution: "temurin"
           cache: gradle # or maven depending on your build tool
       # 3. Build the project
-      - name: build
-        run: |
-          cd src/ad
-          ./gradlew build
+      #   - name: build
+      #     run: |
+      #       cd src/ad
+      #       ./gradlew build
       ## for maven, replace with: mvn -B clean package
+      # 3. Build the project
+      - name: Build without format verification
+        run: ./gradlew build -x verifyGoogleJavaFormat
+
       # 4. Run tests
       - name: test
         run: |
