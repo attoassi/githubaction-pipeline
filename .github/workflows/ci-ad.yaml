@@ -34,7 +34,9 @@ jobs:
       ## for maven, replace with: mvn -B clean package
       # 3. Build the project
       - name: Build without format verification
-        run: ./gradlew build -x verifyGoogleJavaFormat
+        run: |
+          cd src/ad
+          ./gradlew build -x verifyGoogleJavaFormat
 
       # 4. Run tests
       - name: test
