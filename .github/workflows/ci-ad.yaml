@@ -32,11 +32,21 @@ jobs:
       #       cd src/ad
       #       ./gradlew build
       ## for maven, replace with: mvn -B clean package
-      # 3. Build the project
+
+      # 3-1. Build the project
       - name: Build without format verification
         run: |
           cd src/ad
           ./gradlew build -x verifyGoogleJavaFormat
+      # Note: why i used 3-1. instead of 3.
+      # 👉 My suggestion:
+      # Keep your GitHub Actions workflow as-is.
+      # If you want to avoid blocking CI builds while waiting for the dev,
+      # you can temporarily skip the verifyGoogleJavaFormat step in CI
+      # (so pipelines won’t fail just on code style).
+
+      # - name: Build without format verification
+      #   run: ./gradlew build -x verifyGoogleJavaFormat
 
       # 4. Run tests
       - name: test
@@ -44,3 +54,8 @@ jobs:
           cd src/ad
           ./gradlew test
       ## for maven, replace with: mvn -B test
+      - name: run code quality
+        run: |
+          cd src/ad
+          ./gradlew check
+      ## for maven, replace with: mvn -B verify
