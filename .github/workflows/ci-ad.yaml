@@ -1,14 +1,14 @@
 ## ci for ad microservices
 
-name: ad-microservices-ci
+name: cd for ad microservices
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+#   pull_request:
+#     branches:
+#       - main
 
 jobs:
   build-ad-mmicroservice:
@@ -25,16 +25,16 @@ jobs:
         with:
           java-version: "21"
           distribution: "temurin"
-          cache: maven # or gradle depending on your build tool
+          cache: gradle # or maven depending on your build tool
       # 3. Build the project
       - name: build
         run: |
           cd src/ad
-          mvn -B package --file pom.xml
-      ## for gradle, replace with:  ./gradlew build
+          ./gradlew build
+      ## for maven, replace with: mvn -B clean package
       # 4. Run tests
       - name: test
         run: |
           cd src/ad
-           mvn -B test
-      ## for gradle, replace with: ./gradlew test
+          ./gradlew test
+      ## for maven, replace with: mvn -B test
